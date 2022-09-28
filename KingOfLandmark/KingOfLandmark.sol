@@ -3,7 +3,9 @@ pragma solidity ^0.8.0;
 
 //import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
-import "NFT.sol";
+import "NFT_V2.sol";
+// import "hardhat/console.sol";
+// import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract KingOfLandmark {
     
@@ -43,6 +45,12 @@ contract KingOfLandmark {
     modifier onlyOwner() {
         require(msg.sender == contractOwner);
         _;
+    }
+    //check EOA
+    function isHuman(address addr) internal view returns (bool) {
+      uint size;
+      assembly { size := extcodesize(addr) }
+      return size == 0;
     }
     function initLandmark(string memory _name,string memory _position,string memory site,uint256 _nft) public onlyOwner{
         require(LandNFT.ownerOf(_nft) == address(this));
@@ -94,6 +102,7 @@ contract KingOfLandmark {
     }
 
     function becomeking_ERC20(string memory _alliance,string memory site)payable public{
+        require(isHuman(msg.sender));
         require(lands[site].isInit == true);
         require(msg.value>0 wei && msg.value<=15 wei*10000000000000000);
         uint256 _life = msg.value/10000000000000000 wei;
@@ -128,6 +137,7 @@ contract KingOfLandmark {
     }
 
     function becomeking_NFT(string memory site,uint256 tokenId,string memory _alliance)payable public{
+        require(isHuman(msg.sender));
         require(lands[site].isInit == true);
         require(AttackNFT.getHistory(tokenId).AfterOwner == address(this));
         require(AttackNFT.getHistory(tokenId).BeforeOwner == msg.sender);
@@ -166,6 +176,7 @@ contract KingOfLandmark {
     }
     
     function protect_ERC20(string memory site)payable public{
+        require(isHuman(msg.sender));
         require(lands[site].isInit == true);
         require(msg.value>0 wei && msg.value<=15 wei*10000000000000000);
         uint256 _life = msg.value/10000000000000000 wei;
@@ -174,6 +185,7 @@ contract KingOfLandmark {
         setPrice(_life,msg.sender,site);
     }
     function protect_NFT(string memory site,uint256 tokenId)payable public{
+        require(isHuman(msg.sender));
         require(lands[site].isInit == true);
         require(ProtectNFT.getHistory(tokenId).AfterOwner == address(this));
         require(ProtectNFT.getHistory(tokenId).BeforeOwner == msg.sender);
