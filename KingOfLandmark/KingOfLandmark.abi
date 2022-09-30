@@ -168,7 +168,7 @@
 				"type": "string"
 			}
 		],
-		"name": "becomeking_ERC20",
+		"name": "becomeking_ETH",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -386,7 +386,7 @@
 				"type": "string"
 			}
 		],
-		"name": "protect_ERC20",
+		"name": "protect_ETH",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"

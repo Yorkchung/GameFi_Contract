@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 //import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
-import "NFT_V2.sol";
+import "YorkMeta.sol";
 // import "hardhat/console.sol";
 // import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -101,7 +101,7 @@ contract KingOfLandmark {
         lands[site].life -= _life;
     }
 
-    function becomeking_ERC20(string memory _alliance,string memory site)payable public{
+    function becomeking_ETH(string memory _alliance,string memory site)payable public{
         require(isHuman(msg.sender));
         require(lands[site].isInit == true);
         require(msg.value>0 wei && msg.value<=15 wei*10000000000000000);
@@ -175,7 +175,7 @@ contract KingOfLandmark {
         }
     }
     
-    function protect_ERC20(string memory site)payable public{
+    function protect_ETH(string memory site)payable public{
         require(isHuman(msg.sender));
         require(lands[site].isInit == true);
         require(msg.value>0 wei && msg.value<=15 wei*10000000000000000);
